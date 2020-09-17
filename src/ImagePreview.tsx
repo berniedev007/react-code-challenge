@@ -5,6 +5,7 @@ interface Props {
   url: string
   className?: string
   index: number
+  testid: string
   selectImage: Function
 }
 
@@ -14,6 +15,7 @@ export default class ImagePreview extends React.Component<Props> {
       url,
       className,
       index,
+      testid,
       selectImage
     } = this.props
 
@@ -22,6 +24,7 @@ export default class ImagePreview extends React.Component<Props> {
         <div
           className="ImagePreview--image"
           onClick={() => selectImage(index)}
+          data-testid={testid}
           style={{backgroundImage: `url(${url})`}}  />
       </DivContainer>
     )

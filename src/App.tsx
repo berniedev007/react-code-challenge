@@ -46,7 +46,6 @@ function App() {
     document.addEventListener("keyup", handleKeyPress, false);
   }, []);
 
-  console.log('showIndex', showIndex)
   return (
     <DivContainer>
       <div className="App--instructions">
@@ -59,6 +58,7 @@ function App() {
             selectImage={selectImage}
             index={index}
             className="App--item"
+            testid={`image${index}`}
             key={imageUrl} />
         )}
       </div>
@@ -87,6 +87,15 @@ const DivContainer = styled.div`
     .App--item {
       margin-right: 10px;
       margin-bottom: 10px;
+    }
+
+    @media screen and (max-width: 600px) {
+      align-items: center;
+      justify-content: center;
+
+      .App--item {
+        margin-right: 0;
+      }
     }
   }
 `

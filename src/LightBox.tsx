@@ -20,8 +20,11 @@ export default class LightBox extends React.Component<Props> {
       <DivContainer className={className}>
         <div
           className="LightBox--overlay" onClick={() => selectImage(-1)}/>
+        
         <div
           className="LightBox--image"
+          data-testid="lightbox"
+          role="lightbox"
           style={{backgroundImage: `url(${url})`}}  />
       </DivContainer>
     )
@@ -30,7 +33,7 @@ export default class LightBox extends React.Component<Props> {
 
 const DivContainer = styled.div`
   .LightBox--overlay {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
@@ -39,14 +42,24 @@ const DivContainer = styled.div`
   }
 
   .LightBox--image {
-    position: absolute;
-    width: 400px;
-    height: 400px;
+    position: fixed;
     background-repeat:no-repeat;
     background-position: center;
     background-size: contain;
     background-color: white;
-    top: calc(50% - 200px);
-    left: calc(50% - 200px);
+
+    @media screen and (max-width: 600px) {
+      width: 290px;
+      height: 290px;
+      top: calc(50% - 145px);
+      left: calc(50% - 145px);
+    }
+
+    @media screen and (min-width: 601px) {
+      width: 400px;
+      height: 400px;
+      top: calc(50% - 200px);
+      left: calc(50% - 200px);
+    }
   }
 `

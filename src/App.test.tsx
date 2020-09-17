@@ -1,6 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import App from './App';
+//import { shallow } from 'enzyme';
 
 test('renders the app', () => {
   const { getByText } = render(<App />);
@@ -8,21 +9,32 @@ test('renders the app', () => {
   expect(headerElement).toBeInTheDocument();
 });
 
-describe('MyModal.jsx', function() {
-  it('tests the Close Button', function() {
-    // var spy = sinon.spy();
-    // var MyModalComponent = TestUtils.renderIntoDocument(
-    //   <MyModal show onHide={spy}/>
-    // );
 
-    // // This passes
-    // TestUtils.findRenderedComponentWithType(MyModalComponent, MyModal);
+describe('test the lightbox', () => {
+  describe('when user clicks image', () => {
+    it ('calls correct function to save the information', () => {
+      const { getByTestId, asFragment } = render(<App />);
+      const firstRender = asFragment()
 
-    // // This will get the actual DOM node of the button
-    // var closeButton = document.body.getElementsByClassName("my-modal-class")[0].getElementsByClassName("btn btn-default")[0];
+      // Click button
+      fireEvent.click(getByTestId('image0'))
 
-    // // Will now get here
-    // TestUtils.Simulate.click(CloseButton);
-    // expect(spy.calledOnce).to.be.true;
+      //const secondRender = asFragment()
+
+      const lightbox = getByTestId("lightbox");
+      //expect(secondRender).not.toContain(lightbox)
+      expect(lightbox).not.toBeNull()
+       
+    });
+  });
+
+  describe('when user doesn\'t click image', () => {
+    it ('calls correct function to save the information', () => {
+      const { queryByTitle, queryByRole, asFragment } = render(<App />);
+
+      const lightbox = queryByRole("lightbox");
+      expect(lightbox).toBeNull()
+       
+    });
   });
 });
