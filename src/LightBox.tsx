@@ -8,20 +8,20 @@ interface Props {
   selectImage: Function
 }
 
-export default class ImagePreview extends React.Component<Props> {
+export default class LightBox extends React.Component<Props> {
   render() {
     const {
       url,
       className,
-      index,
       selectImage
     } = this.props
 
     return (
-      <DivContainer className={className} >
+      <DivContainer className={className}>
         <div
-          className="ImagePreview--image"
-          onClick={() => selectImage(index)}
+          className="LightBox--overlay" onClick={() => selectImage(-1)}/>
+        <div
+          className="LightBox--image"
           style={{backgroundImage: `url(${url})`}}  />
       </DivContainer>
     )
@@ -29,15 +29,24 @@ export default class ImagePreview extends React.Component<Props> {
 }
 
 const DivContainer = styled.div`
-  border: 1px solid lightgray;
-  padding: 20px;
+  .LightBox--overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background: gray;
+    opacity: 0.4;
+  }
 
-  .ImagePreview--image {
-    width: 200px;
-    height: 200px;
+  .LightBox--image {
+    position: absolute;
+    width: 400px;
+    height: 400px;
     background-repeat:no-repeat;
     background-position: center;
     background-size: contain;
     background-color: white;
+    top: calc(50% - 200px);
+    left: calc(50% - 200px);
   }
 `
